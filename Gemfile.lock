@@ -3,6 +3,7 @@ PATH
   specs:
     rglossa-r (0.0.1)
       rails (~> 3.2.14)
+      rserve-client (~> 0.3.1)
 
 GEM
   remote: https://rubygems.org/
@@ -75,6 +76,7 @@ GEM
     rake (10.1.0)
     rdoc (3.12.2)
       json (~> 1.4)
+    rserve-client (0.3.1)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)

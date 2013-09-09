@@ -18,7 +18,7 @@ module Rglossa
 
           pairs = []
           freqs.attr.to_ruby[0].zip(freqs.to_ruby) do |a, f|
-            pairs << [a, f]
+            pairs << {form: a, freq: f}
           end
 
           render json: {pairs: pairs, success: true}

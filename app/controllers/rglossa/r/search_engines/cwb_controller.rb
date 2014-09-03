@@ -6,15 +6,18 @@ module Rglossa
       class CwbController < ApplicationController
 
         def query_freq
-          query = params[:query]
+          attribute = params[:attribute] || 'word'
+
+          # TODO: Handle multiple queries
+          query = params[:query].first[:query]
           corpus = params[:corpus].upcase
 
           conn = Rserve::Connection.new
           conn.eval('library("rcqp")')
-          corp = conn.eval(%Q{corp <- corpus("#{corpus}")})
-          subcorp = conn.eval(%Q{subcorp <- subcorpus(corp, '#{query}')})
+          conn.eval(%Q{corp <- corpus("#{corpus}")})
+          conn.eval(%Q{subcorp <- subcorpus(corp, '#{query}')})
 
-          freqs = conn.eval('freqs <- cqp_flist(subcorp, "match", "word")')
+          freqs = conn.eval(%Q{freqs <- cqp_flist(subcorp, "match", "#{attribute}")})
 
           pairs = []
           freqs.attr.to_ruby[0].zip(freqs.to_ruby) do |a, f|
